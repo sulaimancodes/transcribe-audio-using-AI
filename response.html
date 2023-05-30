@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Response Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0;
+            background-color: #f3f4f6;
+        }
+
+        .card {
+            background-color: #ffffff;
+            width: 800px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .card .response-text {
+            font-size: 16px;
+            color: #718096;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <div class="card">
+            <h1 class="text-3xl font-bold mb-4">Text of Uploaded File</h1>
+            <div class="response-text">
+                <div id="variableContainer"></div>
+                <!-- Response data will be displayed here -->
+            </div>
+        </div>
+    </div>
+</body>
+<script>window.addEventListener('DOMContentLoaded', () => {
+        // Get the variable value from the query parameter or any other source
+        const urlParams = new URLSearchParams(window.location.search);
+        const variable = urlParams.get('transcript');
+
+        // Find the container element
+        const variableContainer = document.getElementById('variableContainer');
+
+        // Update the content of the container with the variable value
+        variableContainer.textContent = `${variable}`;
+    });
+</script>
+
+</html>

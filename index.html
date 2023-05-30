@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Audio/Video File Processing</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0;
+            background-color: #f3f4f6;
+        }
+
+        .card {
+            background-color: #ffffff;
+            width: 700px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-input {
+            margin-bottom: 20px;
+        }
+
+        .upload-button {
+            background-color: #4299e1;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background-color: #3182ce;
+        }
+
+        .file-input-text {
+            color: #718096;
+            margin-top: 10px;
+            border: none;
+            background-color: transparent;
+            width: 100%;
+            padding: 8px;
+            border-bottom: 1px solid #cbd5e0;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-input-text:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+    </style>
+    <script src="server.js"></script>
+</head>
+
+<body>
+    <div class="card">
+        <h1 class="text-3xl font-bold mb-8">Audio/Video File Processing</h1>
+        <p class="font-bold mb-8">Upload file And see magic</>
+        <form method="post" action="/" enctype="multipart/form-data">
+            <div class="file-input">
+                <input type="file" name="file" id="file" class="hidden">
+                <label for="file" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg cursor-pointer">
+                    Choose a file
+                </label>
+                <input type="text" id="file-input-text" class="file-input-text" readonly>
+            </div>
+            <button type="submit" class="upload-button">Upload</button>
+        </form>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileInputText = document.getElementById('file-input-text');
+
+        fileInput.addEventListener('change', (e) => {
+            const fileName = e.target.files[0].name;
+            fileInputText.value = fileName;
+        });
+    </script>
+</body>
+
+</html>
