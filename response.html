@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Response Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0;
-            background-color: #f3f4f6;
-        }
-
-        .card {
-            background-color: #ffffff;
-            width: 800px;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h1 {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .card .response-text {
-            font-size: 16px;
-            color: #718096;
-            white-space: pre-wrap;
+        .max-w-custom {
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
     </style>
 </head>
 
-<body>
-    <div class="page-wrapper">
-        <div class="card">
-            <h1 class="text-3xl font-bold mb-4">Text of Uploaded File</h1>
-            <div class="response-text">
-                <div id="variableContainer"></div>
-                <!-- Response data will be displayed here -->
+<body class="bg-gray-100">
+    <div class="max-w-custom mx-4 my-8">
+        <div class="flex flex-col items-center justify-center">
+            <div class="max-w-6xl w-full bg-white rounded-lg shadow-lg w-full">
+                <div class="p-6">
+                    <div class="flex items-center justify-end mb-4">
+                        <a href="http://localhost:3000/" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">Go Back</a>
+                    </div>
+                    <h1 class="text-xl font-bold mb-4">Text of Uploaded File</h1>
+                    <div id="variableContainer"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-6xl">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h1 class="text-xl font-bold mb-4">Summary of Uploaded File</h1>
+                    <div id="variableContainersummery"></div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h1 class="text-xl font-bold mb-4">Highlights of Uploaded File</h1>
+                    <ul id="variableContainerbullets" class="list-disc pl-6"></ul>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Get the variable value from the query parameter or any other source
+            const urlParams = new URLSearchParams(window.location.search);
+            const variable = urlParams.get('transcript');
+            const variablesummery = urlParams.get('summary');
+            const bullets = urlParams.get('bullets');
+
+            // Find the container element
+            const variableContainer = document.getElementById('variableContainer');
+            const variableContainersummery = document.getElementById('variableContainersummery');
+            const variableContainerbullets = document.getElementById('variableContainerbullets');
+
+            // Update the content of the container with the variable value
+            variableContainer.textContent = `${variable}`;
+            variableContainersummery.textContent = `${variablesummery}`;
+
+            // Remove double quotes, brackets, and hyphen, split the bullets string into an array, and generate bullet points
+            const cleanedBullets = bullets ? bullets.replace(/[\[\]"-]/g, '').split(',') : [];
+            cleanedBullets.forEach((bullet) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = bullet.trim();
+                variableContainerbullets.appendChild(listItem);
+            });
+        });
+    </script>
 </body>
-<script>window.addEventListener('DOMContentLoaded', () => {
-        // Get the variable value from the query parameter or any other source
-        const urlParams = new URLSearchParams(window.location.search);
-        const variable = urlParams.get('transcript');
-
-        // Find the container element
-        const variableContainer = document.getElementById('variableContainer');
-
-        // Update the content of the container with the variable value
-        variableContainer.textContent = `${variable}`;
-    });
-</script>
-
 </html>

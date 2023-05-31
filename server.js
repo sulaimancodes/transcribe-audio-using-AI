@@ -2,7 +2,7 @@ const express = require('express');
 const upload = require('express-fileupload');
 
 const app = express();
-const API_TOKEN = "cff3c0bc041c439badb1906eabe2a2d9";
+const API_TOKEN = "357a4941bc804c9bbf7d7f91d8413b0c";
 app.use(upload());
 
 
@@ -53,7 +53,7 @@ async function transcribeAudio(api_token, audio_url) {
     // Send a POST request to the transcription API with the audio URL in the request body
     const response = await fetch("https://api.assemblyai.com/v2/transcript", {
         method: "POST",
-        body: JSON.stringify({ audio_url }),
+        body: JSON.stringify({ audio_url, auto_highlights: true,summarization: true, summary_model: 'informative', summary_type: 'bullets' }),
         headers,
     });
 
@@ -124,8 +124,13 @@ app.post('/', async (req, res) => {
             }
 
             // Send the transcript as the response
+            //console.log(transcript.summary);
+            const highlights = transcript.auto_highlights_result.results;
+            const bulletPoints = highlights.map((highlight) => `- ${highlight.text}`);
+            //console.log(bulletPoints);
+
             //return res.json({ transcript });
-            return res.redirect(`/response?transcript=${encodeURIComponent(JSON.stringify(transcript.text))}`);
+            return res.redirect(`/response?transcript=${encodeURIComponent(JSON.stringify(transcript.text))}&summary=${encodeURIComponent(JSON.stringify(transcript.summary))}&bullets=${encodeURIComponent(JSON.stringify(bulletPoints))}`);
 
 
 
