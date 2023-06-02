@@ -2,7 +2,7 @@ const express = require('express');
 const upload = require('express-fileupload');
 
 const app = express();
-const API_TOKEN = "357a4941bc804c9bbf7d7f91d8413b0c";
+const API_TOKEN = "api-token";//put your api token here assemblyai.com
 app.use(upload());
 
 
@@ -104,7 +104,7 @@ function delay(ms) {
 }
 
 async function sendWebhookData(data) {
-  const webhookUrl = 'https://hook.eu1.make.com/ipchy2tgn2udvumwxie34fg7kspy9w70';
+  const webhookUrl = 'web-hook-url'; //put a webhook url here
 
   try {
     const response = await fetch(webhookUrl, {
@@ -175,6 +175,7 @@ app.post('/', async (req, res) => {
       if (webhookSuccess) {
         // Send the transcript as the response
         return res.json({ data: "Webhook data sent successfully." });
+        
       } else {
         // Handle webhook data send failure
         return res.status(500).json({ error: "Failed to send webhook data." });
