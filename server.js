@@ -166,9 +166,6 @@ app.post('/', async (req, res) => {
         bulletPoints: bulletPoints,
       };
 
-      // Send the transcript as the response
-      //console.log(bulletPoints);
-      await sendWebhookData(webhookData);
 
       //return res.json({ transcript });
       //return res.redirect(`/response?transcript=${encodeURIComponent(JSON.stringify(transcript.text))}&summary=${encodeURIComponent(JSON.stringify(transcript.summary))}&bullets=${encodeURIComponent(JSON.stringify(bulletPoints))}`);
