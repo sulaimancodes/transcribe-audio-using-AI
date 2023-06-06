@@ -2,7 +2,7 @@ const express = require('express');
 const upload = require('express-fileupload');
 
 const app = express();
-const API_TOKEN = "357a4941bc804c9bbf7d7f91d8413b0c";
+const API_TOKEN = "d531a0f42a064bf98fbf2ed1485d4e76";
 app.use(upload());
 
 
